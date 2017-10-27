@@ -53,15 +53,15 @@ public final class RecipeMod {
             switchKey = config.getBoolean("Enable Switch Key", Configuration.CATEGORY_GENERAL, switchKey, "Can be modified in controls menu");
             cycleButton = config.getBoolean("Enable Cycle Button", Configuration.CATEGORY_GENERAL, cycleButton, "Rendered in the crafting GUI");
             cornerText = config.getBoolean("Render Text Tooltip", Configuration.CATEGORY_GENERAL, cornerText, "Rendered in the Top Right Corner of the screen");
-            if(cycleButton){
-                Property property = config.get(Configuration.CATEGORY_CLIENT, "Cycle Button Horizontal Offset", 0);
-                property.setComment("Offset for button from its default position, negative values to the left, positive to the right [default: 0]");
+            Property property = config.get(Configuration.CATEGORY_CLIENT, "Cycle Button Horizontal Offset", 0, "Offset for button from its default position, negative values to the left, positive to the right [default: 0]");
+            if(cycleButton)
                 xOffset = property.getInt();
-                property = config.get(Configuration.CATEGORY_CLIENT, "Cycle Button Vertical Offset", 0);
-                property.setComment("Offset for button from its default position, negative values to under, positive to over [default: 0]");
+            property = config.get(Configuration.CATEGORY_CLIENT, "Cycle Button Vertical Offset", 0, "Offset for button from its default position, negative values to under, positive to over [default: 0]");
+            if(cycleButton)
                 yOffset = property.getInt();
-                onlyNecessary = config.getBoolean("Limit Button To Conflict", Configuration.CATEGORY_CLIENT, onlyNecessary, "Only render button in case of conflict");
-            }
+            property = config.get(Configuration.CATEGORY_CLIENT, "Limit Button To Conflict", onlyNecessary, "Only render button in case of conflict");
+            if(cycleButton)
+                onlyNecessary = property.getBoolean();
             creativeCraft = config.getBoolean("Enable Craft In Creative Inventory", Configuration.CATEGORY_CLIENT, creativeCraft, "Shows craft space in creative inventory tab");
             if(config.hasChanged())
                 config.save();
