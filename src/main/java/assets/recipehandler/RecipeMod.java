@@ -19,8 +19,6 @@ import net.minecraftforge.fml.common.network.FMLEventChannel;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
-import javax.annotation.Nullable;
-
 @Mod(modid = "recipehandler", name = "NoMoreRecipeConflict", version = "$version", acceptedMinecraftVersions = "$mcversion")
 public final class RecipeMod {
     @SidedProxy(clientSide = "assets.recipehandler.ClientEventHandler", serverSide = "assets.recipehandler.PacketHandler")
@@ -86,7 +84,6 @@ public final class RecipeMod {
      */
     interface IRegister{
         void register();
-        @Nullable
         EntityPlayer getPlayer();
         void scheduleTask(Runnable runner);
         void sendShift(InventoryCrafting crafting, Slot result);

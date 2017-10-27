@@ -21,7 +21,7 @@ compileJava {
 }
 
 minecraft {
-    version = "1.11.2-13.20.0.2228"
+    version = "1.10.2-12.18.3.2185"
     runDir = "run"
 
     // the mappings can be changed at any time, and must be in the following format.
@@ -31,7 +31,7 @@ minecraft {
     // simply re-run your setup task after changing the mappings to update your workspace.
     mappings = "snapshot_20170310"
     replace '$version', project.version
-    replace '$mcversion', "[1.11,)"
+    replace '$mcversion', "[1.9,)"
     makeObfSourceJar = false
 }
 
@@ -39,6 +39,9 @@ dependencies {
 }
 
 jar {
+    manifest {
+        attributes 'FMLAT': 'recipehandler_at.cfg'
+    }
     //Keep the jar as clean as possible
     includeEmptyDirs = false
     //Append with minecraft version
@@ -62,4 +65,6 @@ processResources {
     from(sourceSets.main.resources.srcDirs) {
         exclude 'mcmod.info'
     }
+
+    rename '(.+_at.cfg)', 'META-INF/$1'
 }

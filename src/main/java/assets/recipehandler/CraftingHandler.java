@@ -7,7 +7,6 @@ import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
 
-import javax.annotation.Nullable;
 import java.lang.reflect.Field;
 import java.util.*;
 
@@ -52,7 +51,6 @@ public final class CraftingHandler {
      * @param container The searched container
      * @return The crafting space or null if none could be found
      */
-    @Nullable
     public static InventoryCrafting getCraftingMatrix(Container container){
         if (container instanceof ContainerPlayer)
             return ((ContainerPlayer) container).craftMatrix;
@@ -117,7 +115,7 @@ public final class CraftingHandler {
      * @return The current result of the craft, EMPTY is none could be found
      */
 	public static ItemStack findMatchingRecipe(InventoryCrafting craft, World world) {
-		if (!CraftingManager.getInstance().findMatchingRecipe(craft, world).isEmpty()) {
+		if (CraftingManager.getInstance().findMatchingRecipe(craft, world) != null) {
 			List<ItemStack> result = getCraftResult(craft, world);
 			if(previousNumberOfCraft!=result.size()) {
                 previousNumberOfCraft = result.size();
@@ -125,7 +123,7 @@ public final class CraftingHandler {
             }
             delayTimer = world.getTotalWorldTime();
 			if (previousNumberOfCraft == 0) {
-				return ItemStack.EMPTY;
+				return null;
 			}
 			if (recipeIndex < 0) {
 				int j1 = -recipeIndex;
@@ -139,7 +137,7 @@ public final class CraftingHandler {
 				return result.get(recipeIndex % previousNumberOfCraft);
 			}
 		}
-		return ItemStack.EMPTY;
+		return null;
 	}
 
     /**
@@ -168,7 +166,6 @@ public final class CraftingHandler {
      * @param index Possible value for the slot number
      * @return The crafting result slot, or null if none could be found
      */
-    @Nullable
     public static Slot getResultSlot(Container container, InventoryCrafting inventory, int index){
         if(index < container.inventorySlots.size()){
             Slot slot = container.getSlot(index);

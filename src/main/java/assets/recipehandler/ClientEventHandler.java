@@ -22,7 +22,7 @@ import org.lwjgl.input.Mouse;
 
 public final class ClientEventHandler implements RecipeMod.IRegister{
     private KeyBinding key;
-    private ItemStack oldItem = ItemStack.EMPTY;
+    private ItemStack oldItem = null;
     private boolean pressed = false;
 
     /**
@@ -70,7 +70,7 @@ public final class ClientEventHandler implements RecipeMod.IRegister{
             //Simulate left click
             ItemStack temp = FMLClientHandler.instance().getClient().playerController.windowClick(screen.inventorySlots.windowId, slot.slotNumber, 0, ClickType.QUICK_MOVE, getPlayer());
             ItemStack result = CraftingHandler.findMatchingRecipe(crafting, getWorld());
-            if(!slot.getHasStack() && !result.isEmpty()){
+            if(!slot.getHasStack() && result != null){
                 if (ItemStack.areItemStacksEqual(result, temp)) {
                     //Recipe still match, so bounce it back to server
                     RecipeMod.NETWORK.sendToServer(new ChangePacket(slot.slotNumber, result, CraftingHandler.getRecipeIndex()).setShift().toProxy(Side.SERVER));
@@ -140,8 +140,8 @@ public final class ClientEventHandler implements RecipeMod.IRegister{
                     }
                     if(result != null){
                         ItemStack res = CraftingHandler.findMatchingRecipe(craft, getWorld());
-                        if (res.isEmpty()){
-                            oldItem = ItemStack.EMPTY;
+                        if (res == null){
+                            oldItem = null;
                         } else if(!ItemStack.areItemStacksEqual(res, result.getStack())){
                             RecipeMod.NETWORK.sendToServer(new ChangePacket(result.slotNumber, res, CraftingHandler.getRecipeIndex()).setShift().toProxy(Side.SERVER));
                             oldItem = res;
@@ -160,8 +160,8 @@ public final class ClientEventHandler implements RecipeMod.IRegister{
         InventoryCrafting craft = CraftingHandler.getCraftingMatrix(getContainer());
         if (craft != null) {
             ItemStack res = CraftingHandler.findNextMatchingRecipe(craft, getWorld());
-			if (res.isEmpty()){
-				oldItem = ItemStack.EMPTY;
+			if (res == null){
+				oldItem = null;
 			} else if (!ItemStack.areItemStacksEqual(res, oldItem)) {
 			    int index = 0;//The default craft result slot index for containers
                 Slot slot = CraftingHandler.getResultSlot(getContainer(), craft, index);

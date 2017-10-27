@@ -45,7 +45,7 @@ public final class GuiEventHandler {
         if(event.getGui() instanceof GuiContainer){
             InventoryCrafting craft = CraftingHandler.getCraftingMatrix(((GuiContainer) event.getGui()).inventorySlots);
             if (craft != null || (RecipeMod.creativeCraft && event.getGui() instanceof GuiContainerCreative)){
-                int guiLeft = (event.getGui().width + ((GuiContainer) event.getGui()).getXSize()) / 2 + deltaX;
+                int guiLeft = (event.getGui().width + ((GuiContainer) event.getGui()).xSize) / 2 + deltaX;
                 int guiTop = (event.getGui().height) / 2;
                 GuiButton button = new CreativeButton(event.getButtonList().size() + 2, guiLeft + RecipeMod.xOffset, guiTop + RecipeMod.yOffset);
                 event.getButtonList().add(button);
@@ -97,10 +97,10 @@ public final class GuiEventHandler {
                     GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
                     //Overlay the equip slots
                     mc.getTextureManager().bindTexture(new ResourceLocation("textures/gui/container/creative_inventory/tab_inventory.png"));
-                    creative.drawTexturedModalRect(creative.getGuiLeft() + 13, creative.getGuiTop() + 5, 107, 5, 18, 44);
+                    creative.drawTexturedModalRect(creative.guiLeft + 13, creative.guiTop + 5, 107, 5, 18, 44);
                     //Render craft space
                     mc.getTextureManager().bindTexture(GuiContainer.INVENTORY_BACKGROUND);
-                    creative.drawTexturedModalRect(creative.getGuiLeft() + 106, creative.getGuiTop() + 3, 96, 15, 76, 47);
+                    creative.drawTexturedModalRect(creative.guiLeft + 106, creative.guiTop + 3, 96, 15, 76, 47);
                     GlStateManager.disableRescaleNormal();
                     GlStateManager.disableDepth();
                 }
