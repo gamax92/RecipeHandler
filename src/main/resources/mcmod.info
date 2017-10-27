@@ -3,8 +3,8 @@
   "modid": "recipehandler",
   "name": "NoMoreRecipeConflict",
   "description": "Switch between conflicting recipes",
-  "version": "$version",
-  "mcversion": "$mcversion",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
   "url": "http://www.minecraftforum.net/topic/1098727-",
   "authorList": ["stimmedcow","GotoLink"]
 }
